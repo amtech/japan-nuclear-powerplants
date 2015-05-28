@@ -1,0 +1,236 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fugen",
+        "status": "Decommissioned"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [136.01639,35.75444]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fukushima I Nuclear Power Plant",
+        "status": "Cold shutdown, reactors 1-4 damaged, to be decommissioned"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [141.0325,37.42139]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fukushima II Nuclear Power Plant",
+        "status": "Cold shutdown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [141.02111,37.31944]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Genkai Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [129.83722,33.51556]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hamaoka Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [138.1425,34.62361]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Higashidori Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [141.39028,41.18806]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ikata Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [132.31139,33.49083]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kashiwazaki-Kariwa Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [138.60167,37.42833]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maki Nuclear Power Plant",
+        "status": "Withdrawn"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [141.0325,37.42139]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mihama Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [135.96333,35.7025]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Monju Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [135.98806,35.74028]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oi Nuclear Power Plant",
+        "status": "Shutdown for maintenance"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [135.65194,35.54056]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oma Nuclear Power Plant",
+        "status": "Under construction"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [140.91028,41.50972]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Onagawa Nuclear Power Plant",
+        "status": "Cold shutdown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [141.49972,38.40111]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sendai Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [130.18972,31.83361]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Shika Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [136.72639,37.06111]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Shimane Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [132.99917,35.53833]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Takahama Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [135.50472,35.52222]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tokai Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [140.60667,36.46639]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tomari Nuclear Power Plant",
+        "status": "Shutdown for maintenance"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [140.5125,43.03611]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tsuruga Nuclear Power Plant",
+        "status": "Suspended"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [136.07722,35.67278]
+      }
+    }
+  ]
+}

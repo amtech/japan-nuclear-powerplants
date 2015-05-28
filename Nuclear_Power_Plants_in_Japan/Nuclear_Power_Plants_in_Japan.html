@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nuclear Power Plants in Japan</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<link rel="dat1" type="application/json" href="powerplants.geojson" />
+	<style type="text/css">
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		html, body, #map {
+			height: 100%;
+		}
+		table, td {
+			border-collapse: collapse;
+			border-style: solid;
+			border-width: 1px;
+			border-color: #e9e9e9;
+			padding: 5px;
+		}
+		.evenrowcol{
+			background-color: #f6f6f6;
+		}
+		.legend {
+			padding: 6px 8px;
+			font: 14px/16px Arial, Helvetica, sans-serif;
+			background: white;
+			background: rgba(255,255,255,0.8);
+			box-shadow: 0 0 15px rgba(0,0,0,0.2);
+			border-radius: 5px;
+			line-height: 18px;
+			color: #555;
+		}
+		.legend i {
+			width: 18px;
+			height: 18px;
+			float: left;
+			margin-right: 8px;
+		}
+		.legend table, .legend td {
+			border: none;
+		}
+		.value {
+			border: none;
+			padding: 0px 0px 0px 8px;
+			text-align: left;
+			vertical-align: middle;
+		}
+		.circle {
+			border: none;
+			padding: 0px;
+			text-align: center;
+			vertical-align: middle;
+		}
+		.shape {
+			padding: 0px;
+			text-align: center;
+			vertical-align: middle;
+		}
+		.ln {
+			stroke: #0033ff;
+			stroke-width: 5;
+			stroke-opacity: 0.5;
+			stroke-linecap: round;
+		}
+		.plgn {
+			fill: #0033ff;
+			fill-opacity: 0.5;
+			stroke: #0033ff;
+			stroke-width: 4;
+			stroke-opacity: 0.5;
+			stroke-linejoin: round;
+		}
+		.legend i {
+			opacity: 0.5;
+		}				
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<script type="text/javascript">
+		var map = L.map('map');
+		
+		// scale bar
+		L.control.scale().addTo(map);
+
+		// base layer
+		var baseMaps = {};
+		var baseMap = L.tileLayer('http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {"attribution":"Tiles &copy; <a href=\"http://stamen.com\", target=\"_blank\">Stamen Design</a> (<a href=\"http://creativecommons.org/licenses/by/3.0\", target=\"_blank\">CC BY 3.0</a>), Map data &copy; <a href=\"http://openstreetmap.org\", target=\"_blank\">OpenStreetMap</a> (<a href=\"http://creativecommons.org/licenses/by-sa/3.0\", target=\"_blank\">CC BY SA</a>)"});
+		baseMap.addTo(map);
+		baseMaps["Stamen Toner lite"] = baseMap;
+
+		// popup
+		function onEachFeature(feature, layer) {
+			if (feature.properties &&  feature.properties["name"] && feature.properties["status"]) {
+				layer.bindPopup(
+					"<table>" +
+					"<tr class='oddrowcol'><td>name: </td><td>"+feature.properties["name"]+"</td></tr>" +
+					"<tr class='evenrowcol'><td>status: </td><td>"+feature.properties["status"]+"</td></tr>" +
+					"</table>"
+				);
+			}
+		}
+
+		// styling
+		function getValue(x) {
+			return x == "Decommissioned" ? "#000000" :
+			       x == "Cold shutdown, reactors 1-4 damaged, to be decommissioned" ? "#8B0000" :
+			       x == "Cold shutdown" ? "#FF0000" :
+			       x == "Suspended" ? "#FFA500" :
+			       x == "Shutdown for maintenance" ? "#FFFF00" :
+			       x == "Under construction" ? "#BEBEBE" :
+			       "";
+		}
+					
+		function style1(feature) {
+			return {
+				"color": getValue(feature.properties["status"]),
+				"fillOpacity": 0.5
+			};
+		}
+
+		// data layers
+        var layers = {};
+        var group = new L.featureGroup;
+		function addDataToMap(data, style, layer) {
+			layers[layer] = L.geoJson(data, {
+				onEachFeature: (typeof onEachFeature == "undefined") ? undefined : onEachFeature,
+				pointToLayer: function (feature, latlng) {return L.circleMarker(latlng);},
+				style: style
+			});
+			layers[layer].addTo(map);	
+        	group.addLayer(layers[layer])
+			map.fitBounds(group.getBounds());
+		};
+		
+		if(typeof style1 == "undefined") style1 = undefined;
+		addDataToMap({
+		  "type": "FeatureCollection",
+		  "features": [
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Fugen",
+		        "status": "Decommissioned"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [136.01639,35.75444]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Fukushima I Nuclear Power Plant",
+		        "status": "Cold shutdown, reactors 1-4 damaged, to be decommissioned"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [141.0325,37.42139]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Fukushima II Nuclear Power Plant",
+		        "status": "Cold shutdown"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [141.02111,37.31944]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Genkai Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [129.83722,33.51556]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Hamaoka Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [138.1425,34.62361]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Higashidori Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [141.39028,41.18806]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Ikata Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [132.31139,33.49083]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Kashiwazaki-Kariwa Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [138.60167,37.42833]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Mihama Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [135.96333,35.7025]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Monju Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [135.98806,35.74028]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Oi Nuclear Power Plant",
+		        "status": "Shutdown for maintenance"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [135.65194,35.54056]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Oma Nuclear Power Plant",
+		        "status": "Under construction"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [140.91028,41.50972]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Onagawa Nuclear Power Plant",
+		        "status": "Cold shutdown"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [141.49972,38.40111]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Sendai Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [130.18972,31.83361]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Shika Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [136.72639,37.06111]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Shimane Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [132.99917,35.53833]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Takahama Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [135.50472,35.52222]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Tokai Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [140.60667,36.46639]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Tomari Nuclear Power Plant",
+		        "status": "Shutdown for maintenance"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [140.5125,43.03611]
+		      }
+		    },
+		    {
+		      "type": "Feature",
+		      "properties": {
+		        "name": "Tsuruga Nuclear Power Plant",
+		        "status": "Suspended"
+		      },
+		      "geometry": {
+		        "type": "Point",
+		        "coordinates": [136.07722,35.67278]
+		      }
+		    }
+		  ]
+		}, style1, "powerplants");
+
+		// legend
+		var legend = L.control({position: 'bottomright'});
+		legend.onAdd = function(map) {
+			var div = L.DomUtil.create('div', 'legend');
+		    var labels = [];
+		    var cats = ['Decommissioned','Cold shutdown, reactors 1-4 damaged, to be decommissioned','Cold shutdown','Suspended','Shutdown for maintenance','Under construction'];
+
+			div.innerHTML += 'Status<br>';
+			for (var i = 0; i < cats.length; i++) {
+				div.innerHTML +=
+				    '<i style="background:' + getValue(cats[i]) + '"></i> ' +
+					cats[i] + '<br>';
+			}
+			return div;
+		};
+		legend.addTo(map);
+	</script>
+</body>
+</html>
